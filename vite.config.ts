@@ -4,6 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './', // 用来gh-pages部署
   plugins: [react()],
   resolve: {
     alias: [

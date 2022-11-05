@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import type { Scene, PerspectiveCamera, WebGLRenderer } from "three";
 import { createWorld } from "@/Models/World";
 import { addGridPlane } from "@/Models/GridPlane";
+import { addBall } from "@/Models/Ball";
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer;
 
@@ -19,6 +20,7 @@ function start() {
   window.addEventListener("resize", handleWindowResize, false);
 
   addGridPlane(scene);
+  addBall(scene);
 
   renderer.render(scene, camera);
 }

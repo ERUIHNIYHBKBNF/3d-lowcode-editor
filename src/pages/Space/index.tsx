@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
-import { createWorld } from "@/Models/World";
 import type { Scene, PerspectiveCamera, WebGLRenderer } from "three";
+import { createWorld } from "@/Models/World";
+import { addGridPlane } from "@/Models/GridPlane";
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer;
 
@@ -16,6 +17,9 @@ function start() {
   [scene, camera, renderer] = createWorld();
   document.getElementById("canvas")?.appendChild(renderer.domElement);
   window.addEventListener("resize", handleWindowResize, false);
+
+  addGridPlane(scene);
+
   renderer.render(scene, camera);
 }
 

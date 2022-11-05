@@ -1,62 +1,22 @@
 import { useEffect, useRef } from "react";
-import type { Camera, Renderer } from "three";
-import { Scene, PerspectiveCamera, WebGLRenderer } from "three";
-import { MeshSphere } from "@/Models/MeshSphere";
+import { createWorld } from "@/Models/World";
+import type { Scene, PerspectiveCamera, WebGLRenderer } from "three";
 
-function initialize(): [Scene, PerspectiveCamera, Renderer] {
-  const scene = new Scene();
-  const camera = new PerspectiveCamera(
-    50,
-    window.innerWidth / window.innerHeight,
-    0.01,
-    2000
-  );
-  camera.position.z = 2;
-  const renderer = new WebGLRenderer();
-  return [scene, camera, renderer];
-}
+let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer;
 
-function render(scene: Scene, camera: Camera, renderer: Renderer) {
+// 窗口Resize的时候canvas自动适配大小
+function handleWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.render(scene, camera);
 }
 
-const animationGeometryList: Array<{
-  animation?: () => void;
-  [props: string]: any;
-}> = [];
-function animationLoop(scene: Scene, camera: Camera, renderer: Renderer) {
-  requestAnimationFrame(() => animationLoop(scene, camera, renderer));
-  animationGeometryList.forEach((geometry) => {
-    geometry.animation?.();
-  });
-  render(scene, camera, renderer);
-}
-
-function launch() {
-  const [scene, camera, renderer] = initialize();
-
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
+function start() {
+  [scene, camera, renderer] = createWorld();
   document.getElementById("canvas")?.appendChild(renderer.domElement);
-
-  function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    render(scene, camera, renderer);
-  }
-  window.addEventListener("resize", onWindowResize, false);
-
-  const sphere = MeshSphere();
-  sphere.animation = function () {
-    this.rotation.x += 0.001;
-    this.rotation.y += 0.001;
-  }
-  animationGeometryList.push(sphere);
-  
-  scene.add(sphere);
-
-  animationLoop(scene, camera, renderer);
+  window.addEventListener("resize", handleWindowResize, false);
+  renderer.render(scene, camera);
 }
 
 // reference: https://github.com/alibaba/hooks/issues/1628
@@ -68,9 +28,9 @@ const useMount = (fn: () => void) => {
       fn();
     }
   }, []);
-}
+};
 
 export default function Space() {
-  useMount(launch);
+  useMount(start);
   return <div id="canvas"></div>;
-};
+}

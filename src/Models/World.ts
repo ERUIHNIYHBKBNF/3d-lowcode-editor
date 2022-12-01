@@ -1,9 +1,10 @@
 // 使用three构建整个初始世界
 import * as THREE from "three";
 import type { Scene, PerspectiveCamera, WebGLRenderer } from "three";
+import { AmmoPhysics } from '@enable3d/ammo-physics';
 
-// 创建three的三个要素: scene, camera, renderer
-export function createWorld(): [Scene, PerspectiveCamera, WebGLRenderer] {
+// 创建three的三个要素: scene, camera, renderer 另加物理引擎 physics
+export function createWorld(): [Scene, PerspectiveCamera, WebGLRenderer, AmmoPhysics] {
   const scene = new THREE.Scene();
   // 添加光源
   // 半球光
@@ -48,5 +49,8 @@ export function createWorld(): [Scene, PerspectiveCamera, WebGLRenderer] {
   const axes = new THREE.AxesHelper(200);
   scene.add(axes);
 
-  return [scene, camera, renderer];
+  const physics = new AmmoPhysics(scene);
+  physics.debug!.enable();
+
+  return [scene, camera, renderer, physics];
 }

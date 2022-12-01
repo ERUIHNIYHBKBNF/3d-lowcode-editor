@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Space from "./pages/Space/index";
 
 function App() {

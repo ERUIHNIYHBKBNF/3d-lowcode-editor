@@ -1,37 +1,28 @@
 import * as THREE from "three";
-import type { Scene } from "three";
+import type { AmmoPhysics } from '@enable3d/ammo-physics';
 import earthPic from "@/assets/earth.jpg";
 
-export function addBall(scene: Scene) {
+export function addBall(physics: AmmoPhysics) {
   const radius = 2;
-  const position = { x: 0, y: radius, z: 0 };
+  const position = { x: 0, y: radius + 5, z: 0 };
 
-  const ball = Ball(position.x, position.y, position.z, radius);
-
-  scene.add(ball);
+  physics.add.sphere({
+    radius,
+    x: position.x,
+    y: position.y,
+    z: position.z,
+  }, {
+    custom: new THREE.MeshLambertMaterial({ map: loadSkin(earthPic) }),
+  });
 }
 
-function Ball(positionX: number, positionY: number, positionZ: number, radius: number) {
-  // 加载皮肤
+// 加载皮肤
+function loadSkin(url: string) {
   const marbleLoader = new THREE.TextureLoader();
   const marbleTexture = marbleLoader.load(earthPic);
   marbleTexture.wrapS = marbleTexture.wrapT = THREE.RepeatWrapping;
   marbleTexture.repeat.set(1, 1);
   marbleTexture.anisotropy = 1;
   marbleTexture.encoding = THREE.sRGBEncoding;
-
-  const ball = new THREE.Mesh(
-    new THREE.SphereGeometry(radius, 32, 32),
-    new THREE.MeshLambertMaterial({ map: marbleTexture })
-  ); 
-
-  ball.geometry.computeBoundingSphere();
-  ball.geometry.computeBoundingBox();
-
-  ball.position.set(positionX, positionY, positionZ);
-
-  ball.castShadow = true;
-  ball.receiveShadow = true;
-
-  return ball;
+  return marbleTexture;
 }

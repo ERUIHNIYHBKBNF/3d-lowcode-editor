@@ -50,7 +50,7 @@ export function createWorld(): [Scene, PerspectiveCamera, WebGLRenderer, AmmoPhy
   scene.add(axes);
 
   const physics = new AmmoPhysics(scene);
-  physics.debug!.enable();
+  // physics.debug!.enable();
 
   return [scene, camera, renderer, physics];
 }

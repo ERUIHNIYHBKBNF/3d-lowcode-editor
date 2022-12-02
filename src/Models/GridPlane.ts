@@ -29,7 +29,7 @@ export function addGridPlane(scene: Scene, physics: AmmoPhysics) {
     transparent: true,
     opacity: 0.25,
   })});
-  ground.body.setFriction(0.8);
+  ground.body.setFriction(1);
   ground.body.ammo.setRollingFriction(0.8);
 
   // 创建四周围墙

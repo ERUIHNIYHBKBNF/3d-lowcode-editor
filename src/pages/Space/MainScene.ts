@@ -4,6 +4,7 @@ import type { AmmoPhysics } from "@enable3d/ammo-physics";
 import { createWorld } from "@/Models/World";
 import { addGridPlane } from "@/Models/GridPlane";
 import { addBall } from "@/Models/Ball";
+import { Player } from "@/Actions/player";
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, physics: AmmoPhysics;
 
@@ -21,12 +22,13 @@ export const MainScene = () => {
   window.addEventListener("resize", handleWindowResize, false);
 
   addGridPlane(scene, physics);
-  addBall(physics);
+  const player = new Player(addBall(physics));
 
   // loop
   const clock = new THREE.Clock();
   
   const animate = () => {
+    player.makeMove();
     physics.update(clock.getDelta() * 1000);
     physics.updateDebugger();
     renderer.render(scene, camera);

@@ -5,32 +5,20 @@ import type { PerspectiveCamera } from "three";
 let lastX = 0;
 
 export function moveCamera(mainPlayer: Player, camera: PerspectiveCamera) {
-  const { player } = mainPlayer;
+  const { player, maxSpeed } = mainPlayer;
   const { x, y, z } = player.position;
   camera.position.set(x, y + 30, z + 70 + Math.max(player.body.velocity.z / 10, 0));
 
   // 瞎写一堆东西来保证摄像机平滑转动
   const playerVx = player.body.velocity.x;
-  if (lastX < 0) {
-    if (playerVx < lastX) {
-      lastX = Math.max(lastX - 0.2, playerVx);
-    } else {
-      lastX = Math.min(lastX + 0.4, playerVx);
-    }
-  } else if (lastX > 0) {
-    if (playerVx > lastX) {
-      lastX = Math.min(lastX + 0.2, playerVx);
-    } else {
-      lastX = Math.max(lastX - 0.4, playerVx);
-    }
-  } else {
-    if (Math.abs(playerVx) > 2) {
-      lastX += playerVx > 0 ? 0.3 : -0.3;
-    }
-  }
+  lastX += playerVx / 100;
+  if (lastX * playerVx < 0) lastX += playerVx / 100;
+  if (Math.abs(player.body.velocity.x) < 5 && Math.abs(lastX) > 0.5) lastX -= Math.sign(lastX) * 0.2;
+  if (lastX < 0) { lastX = Math.max(lastX, -maxSpeed); }
+  if (lastX > 0) { lastX = Math.min(lastX, maxSpeed); }
 
   camera.lookAt(new Vector3(
-    Math.abs(lastX) > 0.6 ? x + lastX : x,
+    lastX + x,
     y,
     z
   ));

@@ -13,6 +13,7 @@ export function addGridPlane(scene: Scene, physics: AmmoPhysics) {
   const grid = new THREE.GridHelper(175, 20, 0xffffff, 0xffffff);
   (grid.material as Material).opacity = 0.5;
   (grid.material as Material).transparent = true;
+  grid.position.y = 0.005; // 防止闪动
   scene.add(grid);
 
   const staticConfig = { collisionFlags: 1 }; // 设置物体不受物体影响
@@ -25,7 +26,7 @@ export function addGridPlane(scene: Scene, physics: AmmoPhysics) {
     ...position,
     ...staticConfig,
   }, { custom: new THREE.MeshPhysicalMaterial({
-    color: 0x666666,
+    color: 0xffffff,
     transparent: true,
     opacity: 0.25,
   })});

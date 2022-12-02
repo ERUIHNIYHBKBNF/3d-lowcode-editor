@@ -8,9 +8,9 @@ export function createWorld(): [Scene, PerspectiveCamera, WebGLRenderer, AmmoPhy
   const scene = new THREE.Scene();
   // 添加光源
   // 半球光
-  const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
-  hemiLight.color.setHSL(0.6, 0.6, 0.6);
-  hemiLight.groundColor.setHSL(0.1, 1, 0.4);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.2);
+  hemiLight.color.setHex(0xbbbbbff);
+  hemiLight.groundColor.setHex(0xaaaaaa);
   hemiLight.position.set(0, 50, 0);
   scene.add(hemiLight);
   // 平行光

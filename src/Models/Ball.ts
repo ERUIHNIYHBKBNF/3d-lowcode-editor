@@ -14,8 +14,12 @@ export function addBall(physics: AmmoPhysics) {
     widthSegments: 64,
     heightSegments: 64,
   }, {
-    custom: new THREE.MeshPhysicalMaterial({ map: loadSkin(earthPic) }),
+    custom: new THREE.MeshLambertMaterial({ map: loadSkin(earthPic) }),
   });
+  ball.geometry.computeBoundingSphere();
+  ball.geometry.computeBoundingBox();
+  ball.castShadow = true;
+  ball.receiveShadow = true;
   ball.body.setFriction(114514); // 不允许小球滑动
   ball.body.ammo.setRollingFriction(6);
 

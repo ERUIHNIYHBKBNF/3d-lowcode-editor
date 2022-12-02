@@ -45,7 +45,7 @@ export class Player {
     let { x: vx, y: vy, z: vz } = player.body.velocity;
     if (player.position.y > 2) { vy -= 0.25; }
 
-    const speed = 5, maxSpeed = 12;
+    const speed = 2, maxSpeed = 12;
 
     if (forward) { vz -= speed; }
     if (backward) { vz += speed; }

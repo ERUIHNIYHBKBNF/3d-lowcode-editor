@@ -23,8 +23,6 @@ export const MainScene = () => {
   addGridPlane(scene, physics);
   addBall(physics);
 
-  physics.add.box({ x: 0.05, y: 10 }, { lambert: { color: 0x2194ce } });
-
   // loop
   const clock = new THREE.Clock();
   

@@ -15,10 +15,22 @@ export function addGridPlane(scene: Scene, physics: AmmoPhysics) {
   (grid.material as Material).transparent = true;
   scene.add(grid);
 
-  const staticConfig = { collisionFlags: 1 };
-  // 创建网格平面
-  const blockPlane = BlockPlane(position, scale);
-  physics.add.existing(blockPlane as unknown as ExtendedObject3D, staticConfig);
+  const staticConfig = { collisionFlags: 1 }; // 设置物体不受物体影响
+
+  // 创建物理平面
+  const ground = physics.add.ground({
+    width: scale.x,
+    height: scale.z,
+    depth: scale.y,
+    ...position,
+    ...staticConfig,
+  }, { custom: new THREE.MeshPhysicalMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.25,
+  })});
+  ground.body.setFriction(0.8);
+  ground.body.ammo.setRollingFriction(0.8);
 
   // 创建四周围墙
   const wall1 = Wall(0, 1.75, 87.5, wallScale);
@@ -32,20 +44,6 @@ export function addGridPlane(scene: Scene, physics: AmmoPhysics) {
   physics.add.existing(wall4 as unknown as ExtendedObject3D, staticConfig);
   // 不加这一行似乎会丢失材质
   scene.add(wall1, wall2, wall3, wall4);
-}
-
-function BlockPlane(position: Vec3, scale: Vec3) {
-  const blockPlane = new THREE.Mesh(
-    new THREE.BoxGeometry(scale.x, scale.y, scale.z),
-    new THREE.MeshPhongMaterial({
-      color: 0x000000,
-      transparent: true,
-      opacity: 0.25,
-    })
-  );
-  blockPlane.position.set(position.x, position.y, position.z);
-  blockPlane.receiveShadow = true;
-  return blockPlane;
 }
 
 function Wall(x: number, y: number, z: number, scale: Vec3) {

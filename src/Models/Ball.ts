@@ -6,14 +6,17 @@ export function addBall(physics: AmmoPhysics) {
   const radius = 2;
   const position = { x: 0, y: radius + 5, z: 0 };
 
-  physics.add.sphere({
+  const ball = physics.add.sphere({
     radius,
     x: position.x,
     y: position.y,
     z: position.z,
   }, {
-    custom: new THREE.MeshLambertMaterial({ map: loadSkin(earthPic) }),
+    custom: new THREE.MeshPhysicalMaterial({ map: loadSkin(earthPic) }),
   });
+
+  ball.body.ammo.setRollingFriction(0.8);
+  // ball.body.setVelocity(5, 0, 5);
 }
 
 // 加载皮肤

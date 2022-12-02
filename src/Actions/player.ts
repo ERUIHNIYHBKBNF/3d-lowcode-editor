@@ -13,32 +13,11 @@ export class Player {
 
   constructor(player: ExtendedObject3D) {
     this.player = player;
-    window.addEventListener("keydown", this.handleKeyDown.bind(this));
-    window.addEventListener("keyup", this.handleKeyDown.bind(this));
+    window.addEventListener("keydown", this.handleKeyboardEvent.bind(this));
+    window.addEventListener("keyup", this.handleKeyboardEvent.bind(this));
   }
 
-  handleKeyDown(event: KeyboardEvent) {
-    switch (event.code) {
-      case "ArrowLeft":
-      case "KeyA":
-        this.moveDirection.left = event.type === "keydown";
-        break;
-      case "ArrowRight":
-      case "KeyD":
-        this.moveDirection.right = event.type === "keydown";
-        break;
-      case "ArrowUp":
-      case "KeyW":
-        this.moveDirection.forward = event.type === "keydown";
-        break;
-      case "ArrowDown":
-      case "KeyS":
-        this.moveDirection.backward = event.type === "keydown";
-        break;
-    }
-  }
-
-  handleKeyUp(event: KeyboardEvent) {
+  handleKeyboardEvent(event: KeyboardEvent) {
     switch (event.code) {
       case "ArrowLeft":
       case "KeyA":
@@ -76,8 +55,6 @@ export class Player {
     vz = Math.max(-maxSpeed, Math.min(maxSpeed, vz));
 
     player.body.setVelocity(vx, vy, vz);
-
-    console.log(player);
   }
 }
 

@@ -45,14 +45,21 @@ export class Player {
     let { x: vx, y: vy, z: vz } = player.body.velocity;
     if (player.position.y > 2) { vy -= 0.25; }
 
-    const speed = 2, maxSpeed = 10;
+    const speed = 5, maxSpeed = 12;
 
     if (forward) { vz -= speed; }
     if (backward) { vz += speed; }
+    if ((left || right) && !forward && !backward) { vz = 0; }
     if (left) { vx -= speed; }
     if (right) { vx += speed; }
+    // if (!left && !right) { vx = 0; }
     vx = Math.max(-maxSpeed, Math.min(maxSpeed, vx));
     vz = Math.max(-maxSpeed, Math.min(maxSpeed, vz));
+    const eps = 0.1;
+    if (Math.abs(Math.abs(vx) - maxSpeed) <= eps && 
+      Math.abs(Math.abs(vz) - maxSpeed) <= eps) {
+        vx /= 1.414; vz /= 1.414;
+    }
 
     player.body.setVelocity(vx, vy, vz);
   }

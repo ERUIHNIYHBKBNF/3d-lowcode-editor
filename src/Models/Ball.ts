@@ -3,7 +3,7 @@ import type { AmmoPhysics } from '@enable3d/ammo-physics';
 import earthPic from "@/assets/earth.jpg";
 
 export function addBall(physics: AmmoPhysics) {
-  const radius = 4;
+  const radius = 2;
   const position = { x: 0, y: radius + 5, z: 0 };
 
   const ball = physics.add.sphere({
@@ -11,10 +11,12 @@ export function addBall(physics: AmmoPhysics) {
     x: position.x,
     y: position.y,
     z: position.z,
+    widthSegments: 64,
+    heightSegments: 64,
   }, {
     custom: new THREE.MeshPhysicalMaterial({ map: loadSkin(earthPic) }),
   });
-  ball.body.setFriction(1); // 不允许小球滑动
+  ball.body.setFriction(10); // 不允许小球滑动
   ball.body.ammo.setRollingFriction(0.8);
 
   return ball;

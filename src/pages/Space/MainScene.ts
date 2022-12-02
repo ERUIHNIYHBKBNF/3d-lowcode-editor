@@ -4,6 +4,9 @@ import type { AmmoPhysics } from "@enable3d/ammo-physics";
 import { createWorld } from "@/Models/World";
 import { addGridPlane } from "@/Models/GridPlane";
 import { addBall } from "@/Models/Ball";
+import { generateGalaxy, updateGalaxy } from "@/Models/Galaxy";
+import { addGlowingParticles } from "@/Models/GlowingParticles";
+import { generateStars } from "@/Models/StarrySky";
 import { Player } from "@/Actions/player";
 import { moveCamera } from "@/Actions/camera";
 
@@ -25,12 +28,17 @@ export const MainScene = () => {
   addGridPlane(scene, physics);
   const player = new Player(addBall(physics));
 
+  generateGalaxy(scene);
+  generateStars(scene);
+  addGlowingParticles(scene);
+
   // loop
   const clock = new THREE.Clock();
   
   const animate = () => {
     player.makeMove();
     moveCamera(player, camera);
+    updateGalaxy();
     physics.update(clock.getDelta() * 1000);
     physics.updateDebugger();
     renderer.render(scene, camera);

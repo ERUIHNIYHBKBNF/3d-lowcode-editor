@@ -25,7 +25,7 @@ export function addGridPlane(scene: Scene, physics: AmmoPhysics) {
     ...position,
     ...staticConfig,
   }, { custom: new THREE.MeshPhysicalMaterial({
-    color: 0x000000,
+    color: 0x666666,
     transparent: true,
     opacity: 0.25,
   })});

@@ -1,4 +1,3 @@
-import * as THREE from "three";
 import type { ExtendedObject3D } from "enable3d";
 
 export class Player {
@@ -45,7 +44,7 @@ export class Player {
     let { x: vx, y: vy, z: vz } = player.body.velocity;
     if (player.position.y > 2) { vy -= 0.25; }
 
-    const speed = 2, maxSpeed = 12;
+    const speed = 2, maxSpeed = 15;
 
     if (forward) { vz -= speed; }
     if (backward) { vz += speed; }
@@ -64,4 +63,3 @@ export class Player {
     player.body.setVelocity(vx, vy, vz);
   }
 }
-

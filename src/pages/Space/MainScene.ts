@@ -5,6 +5,7 @@ import { createWorld } from "@/Models/World";
 import { addGridPlane } from "@/Models/GridPlane";
 import { addBall } from "@/Models/Ball";
 import { Player } from "@/Actions/player";
+import { moveCamera } from "@/Actions/camera";
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, physics: AmmoPhysics;
 
@@ -29,6 +30,7 @@ export const MainScene = () => {
   
   const animate = () => {
     player.makeMove();
+    moveCamera(player, camera);
     physics.update(clock.getDelta() * 1000);
     physics.updateDebugger();
     renderer.render(scene, camera);

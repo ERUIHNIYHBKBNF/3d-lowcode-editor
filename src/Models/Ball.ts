@@ -16,8 +16,8 @@ export function addBall(physics: AmmoPhysics) {
   }, {
     custom: new THREE.MeshPhysicalMaterial({ map: loadSkin(earthPic) }),
   });
-  ball.body.setFriction(10); // 不允许小球滑动
-  ball.body.ammo.setRollingFriction(0.8);
+  ball.body.setFriction(114514); // 不允许小球滑动
+  ball.body.ammo.setRollingFriction(6);
 
   return ball;
 }

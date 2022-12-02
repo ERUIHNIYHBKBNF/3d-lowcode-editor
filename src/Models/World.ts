@@ -35,8 +35,8 @@ export function createWorld(): [Scene, PerspectiveCamera, WebGLRenderer, AmmoPhy
     1,
     5000
   );
-  camera.position.set(0, 30, 70); // 正式
-  camera.position.set(30, 30, 170); // Debug: 用于调试
+  camera.position.set(0, 30, 70);
+  camera.lookAt(0, 0, 0);
 
   const renderer = new THREE.WebGLRenderer({
     antialias: true, // 抗锯齿

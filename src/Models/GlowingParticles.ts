@@ -8,12 +8,12 @@ export function addGlowingParticles(scene: Scene) {
 
   // const particleAttributes = { startSize: [], startPosition: [], randomness: [] };
   const particleGroup = new THREE.Object3D();
-  particleGroup.position.x = -1;
+  particleGroup.position.x = 0;
   particleGroup.position.y = 7;
-  particleGroup.position.z = 45;
+  particleGroup.position.z = 0;
 
-  const totalParticles = 50;
-  const radiusRange = 4;
+  const totalParticles = 1000;
+  const radiusRange = 20;
   for (let i = 0; i < totalParticles; i++) {
     const spriteMaterial = new THREE.SpriteMaterial({
       map: particleTexture,

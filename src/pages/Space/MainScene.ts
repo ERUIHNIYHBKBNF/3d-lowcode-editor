@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import type { Scene, PerspectiveCamera, WebGLRenderer } from "three";
-import type { AmmoPhysics } from "@enable3d/ammo-physics";
+import type { AmmoPhysics, ExtendedObject3D } from "@enable3d/ammo-physics";
 import { createWorld } from "@/Models/World";
 import { addGridPlane } from "@/Models/GridPlane";
 import { addBall } from "@/Models/Ball";
@@ -9,6 +9,13 @@ import { addGlowingParticles } from "@/Models/GlowingParticles";
 import { generateStars } from "@/Models/StarrySky";
 import { Player } from "@/Actions/player";
 import { moveCamera } from "@/Actions/camera";
+
+import { project } from "@/test-project";
+const itemName2Model: {
+  [key: string]: (physics: AmmoPhysics, options: ItemCreateOptions) => ExtendedObject3D;
+} = {
+  ball: addBall,
+};
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, physics: AmmoPhysics;
 
@@ -25,12 +32,16 @@ export const MainScene = () => {
   document.getElementById("canvas")?.appendChild(renderer.domElement);
   window.addEventListener("resize", handleWindowResize, false);
 
-  addGridPlane(scene, physics);
-  const player = new Player(addBall(physics));
+  addGridPlane(scene, physics, project.gridPlane);
+  project.elements.galaxy && generateGalaxy(scene);
+  project.elements.starrySky && generateStars(scene);
+  project.elements.glowingParticles && addGlowingParticles(scene);
 
-  generateGalaxy(scene);
-  generateStars(scene);
-  addGlowingParticles(scene);
+  const player = new Player(itemName2Model[project.player.itemType](physics, project.player.options));
+
+  project.items.forEach((item) => {
+    itemName2Model[item.itemType](physics, item.options);
+  });
 
   // loop
   const clock = new THREE.Clock();

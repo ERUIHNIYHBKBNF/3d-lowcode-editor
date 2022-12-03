@@ -4,9 +4,13 @@ declare type Position = {
   z: number,
 };
 
+declare enum ItemType {
+  Ball = "ball",
+}
+
 declare type Item = { id: string; } &
   ({
-    itemType: "ball",
+    itemType: ItemType.Ball,
     options: BallCreateOptions,
   }
   | any);

@@ -9,9 +9,9 @@ import { addGlowingParticles } from "@/Models/GlowingParticles";
 import { generateStars } from "@/Models/StarrySky";
 import { Player } from "@/Actions/player";
 import { moveCamera } from "@/Actions/camera";
-import mockProject from "@/mock/test-project.json";
+import { PhysicsLoader } from "enable3d";
 
-const project = mockProject as Project;
+let project: Project;
 
 const itemName2Model: {
   [key: string]: (physics: AmmoPhysics, options: ItemCreateOptions) => ExtendedObject3D;
@@ -29,7 +29,7 @@ function handleWindowResize() {
   renderer.render(scene, camera);
 }
 
-export const MainScene = () => {
+function MainScene() {
   [scene, camera, renderer, physics] = createWorld();
   document.getElementById("canvas")?.appendChild(renderer.domElement);
   window.addEventListener("resize", handleWindowResize, false);
@@ -60,3 +60,8 @@ export const MainScene = () => {
   };
   requestAnimationFrame(animate);
 };
+
+export function start(startProject: Project) {
+  project = startProject;
+  PhysicsLoader("./ammo", MainScene);
+}

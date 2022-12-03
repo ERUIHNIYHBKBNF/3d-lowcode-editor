@@ -1,12 +1,10 @@
+import { ItemType } from "@/common/enums";
+
 declare type Position = {
   x: number,
   y: number,
   z: number,
 };
-
-declare enum ItemType {
-  Ball = "ball",
-}
 
 declare type Item = { id: string; } &
   ({

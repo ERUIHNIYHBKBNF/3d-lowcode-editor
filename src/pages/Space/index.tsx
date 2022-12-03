@@ -1,19 +1,18 @@
 import { useEffect, useRef } from "react";
-import { PhysicsLoader } from "enable3d";
-import { MainScene } from "./MainScene";
+import { start } from "./MainScene";
 
 // reference: https://github.com/alibaba/hooks/issues/1628
-const useMount = (fn: () => void) => {
+const useMount = (fn: (...args: any) => void, ...args: any[]) => {
   const componentDidMount = useRef(false);
   useEffect(() => {
     if (!componentDidMount.current) {
       componentDidMount.current = true;
-      fn();
+      fn(...args);
     }
   }, []);
 };
 
-export default function Space() {
-  useMount(() => PhysicsLoader("./ammo", MainScene));
+export default function Space({project}: {project: Project}) {
+  useMount(() => start(project));
   return <div id="canvas"></div>;
 }

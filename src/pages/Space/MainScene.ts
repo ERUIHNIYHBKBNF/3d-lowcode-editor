@@ -9,8 +9,10 @@ import { addGlowingParticles } from "@/Models/GlowingParticles";
 import { generateStars } from "@/Models/StarrySky";
 import { Player } from "@/Actions/player";
 import { moveCamera } from "@/Actions/camera";
+import mockProject from "@/mock/test-project.json";
 
-import { project } from "@/test-project";
+const project = mockProject as Project;
+
 const itemName2Model: {
   [key: string]: (physics: AmmoPhysics, options: ItemCreateOptions) => ExtendedObject3D;
 } = {

@@ -1,5 +1,3 @@
-import { ItemType } from "@/common/enums";
-
 declare type Position = {
   x: number,
   y: number,
@@ -8,7 +6,7 @@ declare type Position = {
 
 declare type Item = { id: string; } &
   ({
-    itemType: ItemType.Ball,
+    itemType: "ball",
     options: BallCreateOptions,
   }
   | any);

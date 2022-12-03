@@ -1,4 +1,3 @@
-import { Item } from "@/@types/global";
 import { ItemType, RightPanelType } from "@/common/enums";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";

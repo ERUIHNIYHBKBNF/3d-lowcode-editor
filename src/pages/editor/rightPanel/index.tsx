@@ -1,4 +1,3 @@
-import { Item } from '@/@types/global';
 import { RightPanelType } from '@/common/enums';
 import './style.css';
 

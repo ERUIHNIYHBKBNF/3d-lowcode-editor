@@ -6,12 +6,12 @@ import mockProject from "@/mock/test-project.json";
 const project = mockProject as Project;
 
 function App() {
-  const [showPreview, setShowPreview] = useState(false);
+  const [preview, setShowPreview] = useState(true);
 
   return (<>
-    { showPreview ? <Space project={project} /> : <Editor project={project} /> }
+    { preview ? <Space project={project} /> : <Editor project={project} /> }
     <button
-      onClick={() => setShowPreview(!showPreview)}
+      onClick={() => setShowPreview(!preview)}
       style={{
         position: 'fixed',
         top: 0,
@@ -19,7 +19,7 @@ function App() {
         zIndex: 9999,
       }}
     >
-      {showPreview ? '编辑' : '预览'}
+      {preview ? '编辑' : '预览'}
     </button>
   </>);
 }

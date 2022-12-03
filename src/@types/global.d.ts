@@ -4,10 +4,18 @@ declare type Position = {
   z: number,
 };
 
+declare type EditorOptions = {
+  width: string,
+  height: string,
+  left: number,
+  top: number,
+}
+
 declare type Item = { id: string; } &
   ({
     itemType: "ball",
-    options: BallCreateOptions,
+    createOptions: BallCreateOptions,
+    editorOptions: EditorOptions,
   }
   | any);
 

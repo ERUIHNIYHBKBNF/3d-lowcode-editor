@@ -1,6 +1,7 @@
-import { ItemType, RightPanelType } from "@/common/enums";
 import React from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { ItemType } from "@/common/enums";
+import { useDrop } from "react-dnd";
+import { BallComponentDroped, ballDefaultData, changeBallPosition } from "../components/ball";
 import './style.css';
 
 type DrawPanelProps = {
@@ -8,56 +9,31 @@ type DrawPanelProps = {
   setData: Function;
   setRightPanelType: Function;
   setRightRanelElementId: Function;
+  projectLength: number;
 }
 
-type TextComponentDropedProps = {
-  item: Item;
-  setRightPanelType: Function;
-  setRightRanelElementId: Function;
-};
-
-function TextComponentDroped({
-  item,
-  setRightPanelType,
-  setRightRanelElementId
-}: TextComponentDropedProps) {
-  const [, drag] = useDrag(() => ({
-    type: ItemType.Ball_Droped,
-    item: { id: item.id },
-  }));
-  return (
-    <div
-      onClick={() => {
-        console.log(`clicked: item ${item.id}`);
-        setRightPanelType(RightPanelType.Ball);
-        setRightRanelElementId(item.id);
-      }}
-      style={{
-        color: item.color,
-        fontSize: item.size,
-        width: item.width,
-        height: item.height,
-        left: item.left,
-        top: item.top,
-        position: 'absolute',
-        backgroundColor: '#bbbbbb'
-      }}
-      ref={drag}
-    >
-      {item.data}
-    </div>
-  );
-}
-
-export default function MidPanel({data, setRightPanelType, setRightRanelElementId, setData}: DrawPanelProps) {
+export default function MidPanel({data, setRightPanelType, setRightRanelElementId, setData, projectLength}: DrawPanelProps) {
   const findCurrentElement = (id: string) => {
     return data.find((item: Item) => item.id === id);
   }
 
-  const changeElementData = (id: string, key: string, newData: any) => {
+  const changeElementPosition = (id: string, x: number, z: number, top: number, left: number) => {
     const element = findCurrentElement(id);
     if (element) {
-      element[key] = newData;
+      element.createOptions = {
+        ...element.createOptions,
+        position: {
+          x,
+          y: element.createOptions.position.y,
+          z,
+        }
+      }
+      element.editorOptions = {
+        ...element.editorOptions,
+        top,
+        left,
+      }
+      console.log(element);
       setData([...data]);
     }
   }
@@ -70,27 +46,18 @@ export default function MidPanel({data, setRightPanelType, setRightRanelElementI
       const { x, y } = monitor.getSourceClientOffset()!; // 相对屏幕左上角的位置
       // 计算相对容器左上角的位置
       const [currentX, currentY] = [x - containerRef.current!.offsetLeft, y - 75];
+      const [left, top] = [currentX / containerRef.current!.clientWidth, currentY / containerRef.current!.clientHeight];
+      console.log(monitor.getItem(), monitor.getItemType());
+      
       switch (monitor.getItemType()) {
         case ItemType.Ball:
           setData([
             ...data,
-            {
-              id: `text-${Date.now()}`,
-              type: 'text',
-              data: '我是新建的文字',
-              color: '#000000',
-              size: '12px',
-              width: '100px',
-              height: '20px',
-              left: `${currentX}px`,
-              top: `${currentY}px`
-            }
+            ballDefaultData(`ball-${Date.now()}`, top, left, projectLength),
           ]);
           return;
         case ItemType.Ball_Droped:
-          console.log(monitor.getItem());
-          changeElementData((monitor.getItem() as { id: string }).id, 'left', `${currentX}px`);
-          changeElementData((monitor.getItem() as { id: string }).id, 'top', `${currentY}px`);
+          changeBallPosition((monitor.getItem() as Item).id, top, left, projectLength, changeElementPosition);
           return;
       }
     }
@@ -99,10 +66,10 @@ export default function MidPanel({data, setRightPanelType, setRightRanelElementI
   const generateContent = () => {
     const ret = [];
     for (const item of data) {
-      switch (item.type) {
-        case 'text':
+      switch (item.itemType) {
+        case ItemType.Ball:
           ret.push(
-            <TextComponentDroped
+            <BallComponentDroped
               key={item.id}
               item={item}
               setRightPanelType={setRightPanelType}

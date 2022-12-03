@@ -1,7 +1,7 @@
 declare type Project = {
   name: string,
   description?: string,
-  gridPlane: gridPlaneCreateOptions,
+  gridPlane: GridPlaneCreateOptions,
   player: Item,
   items: Array<Item>,
   elements: {

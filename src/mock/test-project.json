@@ -6,7 +6,7 @@
   "player": {
     "id": "player",
     "itemType": "ball",
-    "options": {
+    "createOptions": {
       "radius": 2,
       "position": {
         "x": 0,
@@ -19,7 +19,24 @@
       "gravity": -98
     }
   },
-  "items": [],
+  "items": [{
+    "id": "test-ball",
+    "itemType": "ball",
+    "createOptions": {
+      "radius": 2,
+      "position": {
+        "x": 10,
+        "y": 7,
+        "z": -10
+      }
+    },
+    "editorOptions": {
+      "width": "50px",
+      "height": "50px",
+      "left": 0.55,
+      "top": 0.45
+    }
+  }],
   "elements": {
     "galaxy": true,
     "starrySky": true,

@@ -39,10 +39,10 @@ function MainScene() {
   project.elements.starrySky && generateStars(scene);
   project.elements.glowingParticles && addGlowingParticles(scene);
 
-  const player = new Player(itemName2Model[project.player.itemType](physics, project.player.options));
+  const player = new Player(itemName2Model[project.player.itemType](physics, project.player.createOptions));
 
   project.items.forEach((item) => {
-    itemName2Model[item.itemType](physics, item.options);
+    itemName2Model[item.itemType](physics, item.createOptions);
   });
 
   // loop

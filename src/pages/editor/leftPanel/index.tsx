@@ -8,8 +8,6 @@ export default function LeftPanel() {
         <h1>LeftPanel</h1>
         <div className="leftMaterialContiner">
           <Ball />
-          <Ball />
-          <Ball />
         </div>
       </div>
     </div>

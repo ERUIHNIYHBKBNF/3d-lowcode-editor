@@ -6,8 +6,8 @@ import mockProject from "@/mock/test-project.json";
 const project = mockProject as Project;
 
 function App() {
-  const [preview, setShowPreview] = useState(true);
-
+  const [preview, setShowPreview] = useState(false);
+  
   return (<>
     { preview ? <Space project={project} /> : <Editor project={project} /> }
     <button

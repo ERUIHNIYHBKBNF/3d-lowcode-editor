@@ -4,6 +4,7 @@ import type { AmmoPhysics, ExtendedObject3D } from "@enable3d/ammo-physics";
 import { createWorld } from "@/Models/World";
 import { addGridPlane } from "@/Models/GridPlane";
 import { addBall } from "@/Models/Ball";
+import { addBlock } from "@/Models/Block";
 import { generateGalaxy, updateGalaxy } from "@/Models/Galaxy";
 import { addGlowingParticles } from "@/Models/GlowingParticles";
 import { generateStars } from "@/Models/StarrySky";
@@ -14,9 +15,14 @@ import { PhysicsLoader } from "enable3d";
 let project: Project;
 
 const itemName2Model: {
-  [key: string]: (physics: AmmoPhysics, options: ItemCreateOptions) => ExtendedObject3D;
+  // TODO: 用泛型来实现
+  // [key: string]: (physics: AmmoPhysics, options: ItemCreateOptions) => ExtendedObject3D;
+  // ball: (physics: AmmoPhysics, options: BallCreateOptions) => ExtendedObject3D;
+  // block: (physics: AmmoPhysics, options: BlockCreateOptions) => ExtendedObject3D;
+  [key: string]: (physics: AmmoPhysics, options: any) => ExtendedObject3D;
 } = {
   ball: addBall,
+  block: addBlock,
 };
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, physics: AmmoPhysics;

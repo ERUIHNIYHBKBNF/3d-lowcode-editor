@@ -1,5 +1,6 @@
 import { RightPanelType } from '@/common/enums';
 import { BallPropsEdit } from '../components/ball';
+import { BlockPropsEdit } from '../components/block';
 import './style.css';
 
 type RightPanelProps = {
@@ -37,6 +38,13 @@ export default function RightPanel({
     switch (type) {
       case RightPanelType.Ball:
         return <BallPropsEdit
+          elementId={elementId}
+          findCurrentElement={findCurrentElement}
+          changeElementData={changeElementData}
+          projectLength={projectLength}
+        />;
+      case RightPanelType.Block:
+        return <BlockPropsEdit
           elementId={elementId}
           findCurrentElement={findCurrentElement}
           changeElementData={changeElementData}

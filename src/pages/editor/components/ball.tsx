@@ -2,7 +2,7 @@ import { ItemType, RightPanelType } from '@/common/enums';
 import { xz2tl, tl2xz } from '@/utils';
 import { useDrag } from 'react-dnd';
 
-export default function BallComponent() {
+export function BallCard() {
   const [, drag] = useDrag(() => ({
     type: ItemType.Ball,
     collect: monitor => ({
@@ -81,7 +81,7 @@ export function ballDefaultData(id: string, top: number, left: number, length: n
 
 type BallPropsEditorProps = {
   elementId: string;
-  findCurrentElement: (id: string) => Item;
+  findCurrentElement: (id: string) => Item | undefined;
   changeElementData: (id: string, newCreateOptions: ItemCreateOptions, newEditorOptions: EditorOptions) => void;
   projectLength: number;
 }
@@ -96,7 +96,7 @@ export function BallPropsEdit({
   if (!elementData) {
     return <div>属性编辑区</div>;
   }
-  const options = elementData.createOptions;
+  const options = elementData.createOptions as BallCreateOptions;
   const inputDomObject: Array<HTMLInputElement> = [];
 
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import { ItemType } from "@/common/enums";
 import { useDrop } from "react-dnd";
 import { BallComponentDroped, ballDefaultData, changeBallPosition } from "../components/ball";
+import { BlockComponentDroped, blockDefaultData, changeBlockPosition } from "../components/block";
 import './style.css';
 
 type DrawPanelProps = {
@@ -41,7 +42,7 @@ export default function MidPanel({data, setRightPanelType, setRightRanelElementI
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop(() => ({
-    accept: [ItemType.Ball, ItemType.Ball_Droped], // drop接受的type
+    accept: [ItemType.Ball, ItemType.Ball_Droped, ItemType.Block, ItemType.Block_Droped], // drop接受的type
     drop: (_, monitor) => {
       const { x, y } = monitor.getSourceClientOffset()!; // 相对屏幕左上角的位置
       // 计算相对容器左上角的位置
@@ -59,6 +60,15 @@ export default function MidPanel({data, setRightPanelType, setRightRanelElementI
         case ItemType.Ball_Droped:
           changeBallPosition((monitor.getItem() as Item).id, top, left, projectLength, changeElementPosition);
           return;
+        case ItemType.Block:
+          setData([
+            ...data,
+            blockDefaultData(`block-${Date.now()}`, top, left, projectLength),
+          ]);
+          return;
+        case ItemType.Block_Droped:
+          changeBlockPosition((monitor.getItem() as Item).id, top, left, projectLength, changeElementPosition);
+          return;
       }
     }
   }));
@@ -70,6 +80,16 @@ export default function MidPanel({data, setRightPanelType, setRightRanelElementI
         case ItemType.Ball:
           ret.push(
             <BallComponentDroped
+              key={item.id}
+              item={item}
+              setRightPanelType={setRightPanelType}
+              setRightRanelElementId={setRightRanelElementId}
+            />
+          );
+          break;
+        case ItemType.Block:
+          ret.push(
+            <BlockComponentDroped
               key={item.id}
               item={item}
               setRightPanelType={setRightPanelType}

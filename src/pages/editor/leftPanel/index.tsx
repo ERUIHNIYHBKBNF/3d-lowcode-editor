@@ -1,4 +1,5 @@
-import Ball from "../components/ball";
+import { BallCard } from "../components/ball";
+import { BlockCard } from "../components/block";
 import './style.css';
 
 export default function LeftPanel() {
@@ -7,7 +8,8 @@ export default function LeftPanel() {
       <div>
         <h1>组件区</h1>
         <div className="leftMaterialContiner">
-          <Ball />
+          <BallCard />
+          <BlockCard />
         </div>
       </div>
     </div>

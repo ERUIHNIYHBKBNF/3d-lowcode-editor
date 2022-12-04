@@ -17,8 +17,12 @@ declare type Item = { id: string; } &
     createOptions: BallCreateOptions,
     editorOptions: EditorOptions,
   }
-  | any);
+  | {
+    itemType: "block",
+    createOptions: BlockCreateOptions,
+    editorOptions: EditorOptions,
+  })
 
 declare type ItemCreateOptions = 
   | BallCreateOptions
-  | any;
+  | BlockCreateOptions

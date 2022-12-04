@@ -85,7 +85,7 @@ export default function MidPanel({data, setRightPanelType, setRightRanelElementI
   return (
     <div className="midPanel" ref={containerRef}>
       <div>
-        <h1>MidPanel</h1>
+        <h1>画板区</h1>
       </div>
       <div className="midItemsContainer" ref={drop}>
         {generateContent()}

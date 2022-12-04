@@ -5,7 +5,7 @@ export default function LeftPanel() {
   return (
     <div className="leftPanel">
       <div>
-        <h1>LeftPanel</h1>
+        <h1>组件区</h1>
         <div className="leftMaterialContiner">
           <Ball />
         </div>

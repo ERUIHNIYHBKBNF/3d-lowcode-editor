@@ -32,7 +32,7 @@ export default function RightPanel({
 
   const generateRightPanel = () => {
     if (type === RightPanelType.None) {
-      return <div>属性编辑区</div>;
+      return <div>选择元素以编辑属性</div>;
     }
     switch (type) {
       case RightPanelType.Ball:
@@ -48,7 +48,7 @@ export default function RightPanel({
   return (
     <div className="rightPanel">
       <div>
-        <h1>RightPanel</h1>
+        <h1>属性编辑区</h1>
       </div>
       <div className="rightFormContainer">
         {generateRightPanel()}

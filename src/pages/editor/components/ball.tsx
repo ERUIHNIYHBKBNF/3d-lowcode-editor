@@ -42,8 +42,8 @@ export function BallComponentDroped({
       style={{
         width: item.editorOptions.width,
         height: item.editorOptions.height,
-        left: `${item.editorOptions.left * 100}%`,
-        top: `${item.editorOptions.top * 100}%`,
+        left: `calc(${item.editorOptions.left * 100}% - ${item.editorOptions.width} / 2)`,
+        top: `calc(${item.editorOptions.top * 100}% - ${item.editorOptions.height} / 2)`,
         position: 'absolute',
         backgroundColor: '#bbbbbb',
         display: 'flex',
@@ -71,8 +71,8 @@ export function ballDefaultData(id: string, top: number, left: number, length: n
       },
     },
     editorOptions: {
-      width: '50px',
-      height: '50px',
+      width: '40px',
+      height: '40px',
       left,
       top,
     }

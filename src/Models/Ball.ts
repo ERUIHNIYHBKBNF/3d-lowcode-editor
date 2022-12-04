@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import type { AmmoPhysics } from '@enable3d/ammo-physics';
-import earthPic from "@/assets/earth.jpg";
 
 export function addBall(physics: AmmoPhysics, options: BallCreateOptions) {
   const {
@@ -8,7 +7,7 @@ export function addBall(physics: AmmoPhysics, options: BallCreateOptions) {
     position,
     widthSegments = 32,
     heightSegments = 32,
-    customUrl = earthPic,
+    customUrl = "./assets/earth.jpg",
     friction = 114514, // 默认不允许小球滑动
     rollingFriction = 6,
     gravity = -9.8,

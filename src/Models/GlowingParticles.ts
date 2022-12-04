@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import type { Scene } from "three";
-import spark from "@/assets/spark.png";
+const spark = "./assets/spark.png";
 
 export function addGlowingParticles(scene: Scene) {
   const particleTextureLoader = new THREE.TextureLoader();

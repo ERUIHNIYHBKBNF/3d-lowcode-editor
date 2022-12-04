@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import type { AmmoPhysics } from '@enable3d/ammo-physics';
-import earthPic from "@/assets/earth.jpg";
 
 export function addBlock(physics: AmmoPhysics, options: BlockCreateOptions) {
   const {
@@ -8,7 +7,7 @@ export function addBlock(physics: AmmoPhysics, options: BlockCreateOptions) {
     width,
     depth,
     position,
-    customUrl = earthPic,
+    customUrl = "./assets/earth.jpg",
     friction = 0.8,
     gravity = -9.8,
   } = options;

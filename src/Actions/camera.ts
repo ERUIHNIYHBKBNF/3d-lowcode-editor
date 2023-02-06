@@ -13,9 +13,10 @@ export function moveCamera(mainPlayer: Player, camera: PerspectiveCamera) {
   // 瞎写一堆东西来保证摄像机平滑转动
   lastX += playerVx / 100;
   if (lastX * playerVx < 0) lastX += playerVx / 100;
-  if (Math.abs(player.body.velocity.x) < 5 && Math.abs(lastX) > 0.5) lastX -= Math.sign(lastX) * 0.2;
+  if (Math.abs(player.body.velocity.x) < 5 && Math.abs(lastX) > 0.5) lastX -= Math.sign(lastX) * 0.4;
   if (lastX < 0) { lastX = Math.max(lastX, -maxSpeed); }
   if (lastX > 0) { lastX = Math.min(lastX, maxSpeed); }
+  if (Math.abs(playerVx) < 8 && Math.abs(lastX) < 0.5) lastX = 0;
 
   if (playerVz > 8) lastY = Math.max(lastY - 0.1, -5);
   if (playerVz < -8) lastY = Math.min(lastY + 0.1, 8);

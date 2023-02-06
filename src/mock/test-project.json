@@ -28,7 +28,9 @@
         "x": 10,
         "y": 7,
         "z": -10
-      }
+      },
+      "friction": 0.6,
+      "rollingFriction": 0.1
     },
     "editorOptions": {
       "width": "50px",

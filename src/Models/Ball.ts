@@ -9,7 +9,7 @@ export function addBall(physics: AmmoPhysics, options: BallCreateOptions) {
     heightSegments = 32,
     customUrl = "./assets/earth.jpg",
     friction = 114514, // 默认不允许小球滑动
-    rollingFriction = 6,
+    rollingFriction = 0.6,
     gravity = -9.8,
   } = options;
 

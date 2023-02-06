@@ -14,6 +14,8 @@ import { PhysicsLoader } from "enable3d";
 
 let project: Project;
 
+export const clock = new THREE.Clock(false);
+
 const itemName2Model: {
   // TODO: 用泛型来实现
   // [key: string]: (physics: AmmoPhysics, options: ItemCreateOptions) => ExtendedObject3D;
@@ -50,9 +52,6 @@ function MainScene() {
   project.items.forEach((item) => {
     itemName2Model[item.itemType](physics, item.createOptions);
   });
-
-  // loop
-  const clock = new THREE.Clock();
   
   const animate = () => {
     player.makeMove();

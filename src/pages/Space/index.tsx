@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { start } from "./MainScene";
+import { start, clock } from "./MainScene";
 
 // reference: https://github.com/alibaba/hooks/issues/1628
 const useMount = (fn: (...args: any) => void, ...args: any[]) => {
@@ -14,5 +14,9 @@ const useMount = (fn: (...args: any) => void, ...args: any[]) => {
 
 export default function Space({project}: {project: Project}) {
   useMount(() => start(project));
+  useEffect(() => {
+    clock.start();
+    return () => clock.stop();
+  }, []);
   return <div id="canvas"></div>;
 }
